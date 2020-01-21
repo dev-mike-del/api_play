@@ -16,7 +16,7 @@ def github(request):
             'limit': response.headers['X-RateLimit-Limit'],
             'remaining': response.headers['X-RateLimit-Remaining'],
         }
-    return render(request, 'core/github.html', {'search_result': search_result})
+    return render(request, 'github.html', {'search_result': search_result})
 
 
 def ip_map(request):

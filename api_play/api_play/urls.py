@@ -19,6 +19,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
+	path('github/', views.github, name='github'),
 	path('ip_map/', views.ip_map, name='ip_map'),
     path('admin/', admin.site.urls),
 ]
