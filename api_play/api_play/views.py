@@ -3,11 +3,13 @@ import requests
 
 from django.shortcuts import render
 
+from .forms import DictionaryForm
+
 def github(request):
     search_result = {}
     if 'username' in request.GET:
         username = request.GET['username']
-        url = 'https://api.github.com/users/%s' % username
+        url = f'https://api.github.com/users/{username}'
         response = requests.get(url)
         search_was_successful = (response.status_code == 200)  # 200 = SUCCESS
         search_result = response.json()
@@ -41,3 +43,17 @@ def ip_map(request):
         'api_key': google_key,
         'is_cached': is_cached
     })
+
+
+def oxford(request):
+    search_result = {}
+    if 'word' in request.GET:
+        form = DictionaryForm(request.GET)
+        if form.is_valid():
+            search_result = form.search()
+    else:
+        form = DictionaryForm()
+    return render(request, 'oxford.html', {
+        'form': form, 'search_result': search_result
+        }
+        )
