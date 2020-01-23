@@ -44,6 +44,14 @@ def ip_map(request):
         'is_cached': is_cached
     })
 
+def nasa(request):
+    nasa_key = os.getenv('NASA_KEY')
+    response = requests.get(
+        f'https://api.nasa.gov/planetary/apod?hd=True&api_key={nasa_key}'
+        ).json()
+    return render(request, 'nasa.html',{'r':response})
+
+
 
 def oxford(request):
     search_result = {}
